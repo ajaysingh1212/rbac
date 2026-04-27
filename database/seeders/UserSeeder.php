@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Role;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -17,19 +17,22 @@ public function run(): void
 Create Roles
 */
 
-$superAdmin = Role::create([
-'name' => 'Super Admin',
+$superAdmin = Role::firstOrCreate([
 'slug' => 'super-admin'
+],[
+'name' => 'Super Admin'
 ]);
 
-$admin = Role::create([
-'name' => 'Admin',
+$admin = Role::firstOrCreate([
 'slug' => 'admin'
+],[
+'name' => 'Admin'
 ]);
 
-$userRole = Role::create([
-'name' => 'User',
+$userRole = Role::firstOrCreate([
 'slug' => 'user'
+],[
+'name' => 'User'
 ]);
 
 
@@ -37,21 +40,24 @@ $userRole = Role::create([
 Create Users
 */
 
-$superAdminUser = User::create([
+$superAdminUser = User::updateOrCreate([
+'email' => 'superadmin@gmail.com'
+],[
 'name' => 'Super Admin',
-'email' => 'superadmin@gmail.com',
 'password' => Hash::make('12345678')
 ]);
 
-$adminUser = User::create([
+$adminUser = User::updateOrCreate([
+'email' => 'admin@gmail.com'
+],[
 'name' => 'Admin',
-'email' => 'admin@gmail.com',
 'password' => Hash::make('12345678')
 ]);
 
-$normalUser = User::create([
+$normalUser = User::updateOrCreate([
+'email' => 'user@gmail.com'
+],[
 'name' => 'User',
-'email' => 'user@gmail.com',
 'password' => Hash::make('12345678')
 ]);
 
